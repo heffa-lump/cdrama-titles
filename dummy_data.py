@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import math
 
 def get_data1():
 	txt = """
@@ -13,6 +14,22 @@ def get_data1():
 		np.random.randint(0, 100, size=(year_end-year_start+1, len(ngrams))),
 		columns=ngrams)
 
+def find_ngrams(input_list, n):
+  return zip(*[input_list[i:] for i in range(n)])
+
+def get_data2():
+	titles = open('dummy.txt', 'r').readlines()
+	titles = [t.strip() for t in titles]
+	year_start = 2000
+	year_end = 2026
+	per_year = math.ceil(len(titles)/(year_end - year_start + 1))
+
+	ngrams_per_year = {zip(range(year_start, year_end + 1), list())}
+	for year in range(year_start, year_end + 1):
+		curr_titles = titles[((year - year_start) * per_year):min((year - year_start + 1)*per_year + 1, len(titles))]
+		for title in curr_titles:
+			pass
+
 if __name__ == '__main__':
-	dummy_data = get_data()
+	dummy_data = get_data2()
 	print(dummy_data)
